@@ -31,8 +31,8 @@ export default function TeerResultsTable({ results, isLoading }: TeerResultsTabl
         <TableHeader className="bg-teer-blue">
           <TableRow>
             <TableHead className="text-white font-semibold text-center p-1 text-xs sm:text-sm md:text-base">Date</TableHead>
-            <TableHead className="text-white font-semibold text-center p-1 text-xs sm:text-sm md:text-base">First<br />Round</TableHead>
-            <TableHead className="text-white font-semibold text-center p-1 text-xs sm:text-sm md:text-base">Second<br />Round</TableHead>
+            <TableHead className="text-white font-semibold text-center p-1 text-xs sm:text-sm md:text-base">F/R</TableHead>
+            <TableHead className="text-white font-semibold text-center p-1 text-xs sm:text-sm md:text-base">S/R</TableHead>
             <TableHead className="text-white font-semibold text-center p-1 text-xs sm:text-sm md:text-base">Prediction</TableHead>
             <TableHead className="text-white font-semibold text-center p-1 text-xs sm:text-sm md:text-base">R/W</TableHead>
           </TableRow>
@@ -40,10 +40,10 @@ export default function TeerResultsTable({ results, isLoading }: TeerResultsTabl
         <TableBody>
           {results.map((result, index) => (
             <TableRow key={index}>
-              <TableCell className="border border-gray-200 text-center p-1 text-xs sm:text-sm md:text-base">{result.date}</TableCell>
-              <TableCell className="border border-gray-200 text-center p-1 text-xs sm:text-sm md:text-base">{result.firstRound}</TableCell>
-              <TableCell className="border border-gray-200 text-center p-1 text-xs sm:text-sm md:text-base">{result.secondRound}</TableCell>
-              <TableCell className="border border-gray-200 text-center p-1 text-xs sm:text-sm md:text-base">
+              <TableCell className="border border-gray-200 text-center p-1 text-xs sm:text-sm md:text-lg">{result.date}</TableCell>
+              <TableCell className="border border-gray-200 text-center p-1 text-xs sm:text-sm md:text-lg">{result.firstRound}</TableCell>
+              <TableCell className="border border-gray-200 text-center p-1 text-xs sm:text-sm md:text-lg">{result.secondRound}</TableCell>
+              <TableCell className="border border-gray-200 text-center p-1 text-xs sm:text-sm md:text-lg">
                 {isMobile ? (
                   <span className="whitespace-normal">{result.prediction}</span>
                 ) : (
