@@ -30,20 +30,20 @@ export default function TeerResultsTable({ results, isLoading }: TeerResultsTabl
       <Table className="w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden">
         <TableHeader className="bg-teer-blue">
           <TableRow>
-            <TableHead className="text-white font-semibold text-center p-1 text-xs sm:text-sm md:text-base">Date</TableHead>
-            <TableHead className="text-white font-semibold text-center p-1 text-xs sm:text-sm md:text-base">F/R</TableHead>
-            <TableHead className="text-white font-semibold text-center p-1 text-xs sm:text-sm md:text-base">S/R</TableHead>
-            <TableHead className="text-white font-semibold text-center p-1 text-xs sm:text-sm md:text-base">Prediction</TableHead>
-            <TableHead className="text-white font-semibold text-center p-1 text-xs sm:text-sm md:text-base">R/W</TableHead>
+            <TableHead className="text-white font-semibold text-center p-1 text-sm sm:text-base md:text-lg">Date</TableHead>
+            <TableHead className="text-white font-semibold text-center p-1 text-sm sm:text-base md:text-lg">F/R</TableHead>
+            <TableHead className="text-white font-semibold text-center p-1 text-sm sm:text-base md:text-lg">S/R</TableHead>
+            <TableHead className="text-white font-semibold text-center p-1 text-sm sm:text-base md:text-lg">Prediction</TableHead>
+            <TableHead className="text-white font-semibold text-center p-1 text-sm sm:text-base md:text-lg">R/W</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {results.map((result, index) => (
             <TableRow key={index}>
-              <TableCell className="border border-gray-200 text-center p-1 text-xs sm:text-sm md:text-lg">{result.date}</TableCell>
-              <TableCell className="border border-gray-200 text-center p-1 text-xs sm:text-sm md:text-lg">{result.firstRound}</TableCell>
-              <TableCell className="border border-gray-200 text-center p-1 text-xs sm:text-sm md:text-lg">{result.secondRound}</TableCell>
-              <TableCell className="border border-gray-200 text-center p-1 text-xs sm:text-sm md:text-lg">
+              <TableCell className="border border-gray-200 text-center p-1 text-sm sm:text-base md:text-lg">{result.date}</TableCell>
+              <TableCell className="border border-gray-200 text-center p-1 text-sm sm:text-base md:text-lg">{result.firstRound}</TableCell>
+              <TableCell className="border border-gray-200 text-center p-1 text-sm sm:text-base md:text-lg">{result.secondRound}</TableCell>
+              <TableCell className="border border-gray-200 text-center p-1 text-sm sm:text-base md:text-lg">
                 {isMobile ? (
                   <span className="whitespace-normal">{result.prediction}</span>
                 ) : (
