@@ -51,7 +51,7 @@ export default function TeerResultsTable({ results, isLoading }: TeerResultsTabl
                 )}
               </TableCell>
               <TableCell 
-                className={`border border-gray-200 text-center p-1 text-xs sm:text-sm md:text-base ${
+                className={`border border-gray-200 text-center p-1 text-sm sm:text-base md:text-lg ${
                   result.isCorrect === true ? "correct" : 
                   result.isCorrect === false ? "wrong" : "pending"
                 }`}
