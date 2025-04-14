@@ -1,5 +1,13 @@
-
 import { PredictionResult } from "@/types/teer";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow
+} from "@/components/ui/table";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface TeerResultsTableProps {
   results: PredictionResult[];
@@ -7,6 +15,8 @@ interface TeerResultsTableProps {
 }
 
 export default function TeerResultsTable({ results, isLoading }: TeerResultsTableProps) {
+  const isMobile = useIsMobile();
+  
   if (isLoading) {
     return (
       <div className="flex justify-center items-center py-8">
@@ -16,35 +26,43 @@ export default function TeerResultsTable({ results, isLoading }: TeerResultsTabl
   }
 
   return (
-    <div className="overflow-x-auto">
-      <table className="teer-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>First Round</th>
-            <th>Second Round</th>
-            <th>Prediction</th>
-            <th>R/W</th>
-          </tr>
-        </thead>
-        <tbody>
+    <div className="overflow-x-auto -mx-6 px-0 sm:mx-0">
+      <Table className="w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden">
+        <TableHeader className="bg-teer-blue">
+          <TableRow>
+            <TableHead className="text-white font-semibold text-center p-1 text-xs sm:text-sm md:text-base">Date</TableHead>
+            <TableHead className="text-white font-semibold text-center p-1 text-xs sm:text-sm md:text-base">First<br />Round</TableHead>
+            <TableHead className="text-white font-semibold text-center p-1 text-xs sm:text-sm md:text-base">Second<br />Round</TableHead>
+            <TableHead className="text-white font-semibold text-center p-1 text-xs sm:text-sm md:text-base">Prediction</TableHead>
+            <TableHead className="text-white font-semibold text-center p-1 text-xs sm:text-sm md:text-base">R/W</TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
           {results.map((result, index) => (
-            <tr key={index}>
-              <td>{result.date}</td>
-              <td>{result.firstRound}</td>
-              <td>{result.secondRound}</td>
-              <td>{result.prediction}</td>
-              <td className={
-                result.isCorrect === true ? "correct" : 
-                result.isCorrect === false ? "wrong" : "pending"
-              }>
+            <TableRow key={index}>
+              <TableCell className="border border-gray-200 text-center p-1 text-xs sm:text-sm md:text-base">{result.date}</TableCell>
+              <TableCell className="border border-gray-200 text-center p-1 text-xs sm:text-sm md:text-base">{result.firstRound}</TableCell>
+              <TableCell className="border border-gray-200 text-center p-1 text-xs sm:text-sm md:text-base">{result.secondRound}</TableCell>
+              <TableCell className="border border-gray-200 text-center p-1 text-xs sm:text-sm md:text-base">
+                {isMobile ? (
+                  <span className="whitespace-normal">{result.prediction}</span>
+                ) : (
+                  <span>{result.prediction}</span>
+                )}
+              </TableCell>
+              <TableCell 
+                className={`border border-gray-200 text-center p-1 text-xs sm:text-sm md:text-base ${
+                  result.isCorrect === true ? "correct" : 
+                  result.isCorrect === false ? "wrong" : "pending"
+                }`}
+              >
                 {result.isCorrect === true ? "✓" : 
                  result.isCorrect === false ? "✗" : "⏳"}
-              </td>
-            </tr>
+              </TableCell>
+            </TableRow>
           ))}
-        </tbody>
-      </table>
+        </TableBody>
+      </Table>
     </div>
   );
 }
