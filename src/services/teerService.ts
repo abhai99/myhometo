@@ -5,7 +5,7 @@ const apiBase = import.meta.env.DEV ? '/api' : import.meta.env.VITE_API_URL;
 // Fetch Teer results from the API
 export const fetchTeerResults = async (): Promise<TeerResult[]> => {
   try {
-    const response = await fetch(import.meta.env.DEV ? `${apiBase}/results/` : `${apiBase}results/`);
+    const response = await fetch(import.meta.env.DEV ? `${apiBase}/results/` : `${apiBase}/results/`);
     const data = await response.json();
     return data.slice(0, 20); // Get the last 20 results
   } catch (error) {
