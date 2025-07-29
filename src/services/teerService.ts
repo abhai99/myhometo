@@ -1,4 +1,3 @@
-
 import { TeerResult, PredictionResult, GutiNumber } from "@/types/teer";
 
 // Fetch Teer results from the API
