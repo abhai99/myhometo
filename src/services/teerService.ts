@@ -1,23 +1,99 @@
 
 import { TeerResult, PredictionResult, GutiNumber } from "@/types/teer";
 
-// Fetch Teer results from the API - Using thingproxy for CORS bypass
+// Fetch Teer results from the API - Multiple methods for production reliability
 export const fetchTeerResults = async (): Promise<TeerResult[]> => {
+  console.log('🔄 Starting fetchTeerResults...');
+
+  // Method 1: Try backend API if available (most reliable)
   try {
-    // Using thingproxy to bypass CORS restrictions
+    console.log('🌐 Trying backend API...');
+    const response = await fetch('/api/teer');
+
+    if (response.ok) {
+      const data = await response.json();
+      if (Array.isArray(data)) {
+        console.log('✅ Backend API success - returning', data.length, 'results');
+        return data.slice(0, 20);
+      }
+    }
+  } catch (error) {
+    console.log('❌ Backend API failed (expected if not deployed with backend):', error);
+  }
+
+  // Method 2: Try AllOrigins proxy (most reliable for production)
+  try {
+    console.log('🌐 Trying AllOrigins proxy...');
+    const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://admin.shillongteerground.com/teer/api/results/'));
+
+    if (response.ok) {
+      const result = await response.json();
+      if (result.contents) {
+        try {
+          const data = JSON.parse(result.contents);
+          if (Array.isArray(data)) {
+            console.log('✅ AllOrigins success - returning', data.length, 'results');
+            return data.slice(0, 20);
+          }
+        } catch (parseError) {
+          console.log('❌ AllOrigins parse error:', parseError);
+        }
+      }
+    }
+  } catch (error) {
+    console.log('❌ AllOrigins failed:', error);
+  }
+
+  // Method 3: Try thingproxy
+  try {
+    console.log('🌐 Trying thingproxy...');
     const response = await fetch('https://thingproxy.freeboard.io/fetch/https://admin.shillongteerground.com/teer/api/results/');
 
     if (response.ok) {
       const data = await response.json();
-      return Array.isArray(data) ? data.slice(0, 20) : [];
-    } else {
-      console.error('API request failed with status:', response.status);
-      return [];
+      if (Array.isArray(data)) {
+        console.log('✅ Thingproxy success - returning', data.length, 'results');
+        return data.slice(0, 20);
+      }
     }
   } catch (error) {
-    console.error('Error fetching results:', error);
-    return [];
+    console.log('❌ Thingproxy failed:', error);
   }
+
+  // Method 4: Try corsproxy.io
+  try {
+    console.log('🌐 Trying corsproxy.io...');
+    const response = await fetch('https://corsproxy.io/?' + encodeURIComponent('https://admin.shillongteerground.com/teer/api/results/'));
+
+    if (response.ok) {
+      const data = await response.json();
+      if (Array.isArray(data)) {
+        console.log('✅ Corsproxy success - returning', data.length, 'results');
+        return data.slice(0, 20);
+      }
+    }
+  } catch (error) {
+    console.log('❌ Corsproxy failed:', error);
+  }
+
+  // Method 5: Try cors-anywhere (requires demo access)
+  try {
+    console.log('🌐 Trying cors-anywhere...');
+    const response = await fetch('https://cors-anywhere.herokuapp.com/https://admin.shillongteerground.com/teer/api/results/');
+
+    if (response.ok) {
+      const data = await response.json();
+      if (Array.isArray(data)) {
+        console.log('✅ CORS-anywhere success - returning', data.length, 'results');
+        return data.slice(0, 20);
+      }
+    }
+  } catch (error) {
+    console.log('❌ CORS-anywhere failed:', error);
+  }
+
+  console.log('❌ All proxy methods failed');
+  return [];
 };
 
 

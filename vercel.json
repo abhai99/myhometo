@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "api/teer.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/api/teer",
+      "destination": "/api/teer.js"
+    }
+  ]
+}
