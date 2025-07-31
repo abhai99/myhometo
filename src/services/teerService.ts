@@ -5,28 +5,8 @@ import { TeerResult, PredictionResult, GutiNumber } from "@/types/teer";
 export const fetchTeerResults = async (): Promise<TeerResult[]> => {
   console.log('🔄 Starting fetchTeerResults...');
 
-  // Method 1: Try direct API with better headers (sometimes works on production)
-  try {
-    console.log('🌐 Trying direct API with headers...');
-    const response = await fetch('https://admin.shillongteerground.com/teer/api/results/', {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36',
-      },
-      mode: 'cors'
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      if (Array.isArray(data)) {
-        console.log('✅ Direct API success - returning', data.length, 'results');
-        return data.slice(0, 20);
-      }
-    }
-  } catch (error) {
-    console.log('❌ Direct API failed (expected due to CORS):', error);
-  }
+  // Skip direct API for now as it hangs - go straight to proxies
+  console.log('⏭️ Skipping direct API (hangs locally) - trying proxies...');
 
   // Method 2: Try backend API if available (most reliable)
   try {
@@ -44,10 +24,18 @@ export const fetchTeerResults = async (): Promise<TeerResult[]> => {
     console.log('❌ Backend API failed (expected if not deployed with backend):', error);
   }
 
-  // Method 3: Try AllOrigins proxy (most reliable for production)
+  // Method 3: Try AllOrigins proxy with timeout
   try {
     console.log('🌐 Trying AllOrigins proxy...');
-    const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://admin.shillongteerground.com/teer/api/results/'));
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
+
+    const response = await fetch('https://api.allorigins.win/get?url=' + encodeURIComponent('https://admin.shillongteerground.com/teer/api/results/'), {
+      signal: controller.signal
+    });
+
+    clearTimeout(timeoutId);
 
     if (response.ok) {
       const result = await response.json();
