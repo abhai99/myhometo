@@ -5,23 +5,20 @@ import { TeerResult, PredictionResult, GutiNumber } from "@/types/teer";
 export const fetchTeerResults = async (): Promise<TeerResult[]> => {
   console.log('🔄 Starting fetchTeerResults...');
 
-  // Skip direct API for now as it hangs - go straight to proxies
-  console.log('⏭️ Skipping direct API (hangs locally) - trying proxies...');
-
-  // Method 2: Try backend API if available (most reliable)
+  // Method 1: Try your existing Netlify backend (primary)
   try {
-    console.log('🌐 Trying backend API...');
-    const response = await fetch('/api/teer');
+    console.log('🌐 Trying your Netlify backend...');
+    const response = await fetch('https://mypteer.netlify.app/api/teer');
 
     if (response.ok) {
       const data = await response.json();
       if (Array.isArray(data)) {
-        console.log('✅ Backend API success - returning', data.length, 'results');
+        console.log('✅ Netlify Backend API success - returning', data.length, 'results');
         return data.slice(0, 20);
       }
     }
   } catch (error) {
-    console.log('❌ Backend API failed (expected if not deployed with backend):', error);
+    console.log('❌ Netlify Backend API failed:', error);
   }
 
   // Method 3: Try AllOrigins proxy with timeout
