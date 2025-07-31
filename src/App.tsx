@@ -17,6 +17,7 @@ import SubscriptionPage from "./pages/SubscriptionPage";
 import Dashboard from "./pages/Dashboard";
 import SrHePage from "./pages/SrHePage";
 import SrGutiPage from "./pages/SrGutiPage";
+import SupportPage from "./pages/SupportPage";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 
 const queryClient = new QueryClient();
@@ -55,6 +56,7 @@ const App = () => (
                     <SrGutiPage />
                   </ProtectedRoute>
                 } />
+                <Route path="/support" element={<SupportPage />} />
                 <Route path="/admin" element={<AdminDashboard />} />
                 <Route path="*" element={<NotFound />} />
               </Routes>

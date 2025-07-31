@@ -2,7 +2,7 @@
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { ArrowLeft, Users } from "lucide-react";
+import { ArrowLeft, Users, MessageCircle } from "lucide-react";
 
 export default function Navbar() {
   const { user, logout } = useAuth();
@@ -36,16 +36,28 @@ export default function Navbar() {
               <span className="hidden md:inline text-sm">Welcome, {user.name}</span>
               
               {!isAdmin && (
-                <Link to="/referral">
-                  <Button 
-                    variant="ghost" 
-                    size="sm" 
-                    className="text-white bg-transparent"
-                  >
-                    <Users className="h-4 w-4 mr-1" />
-                    Refer
-                  </Button>
-                </Link>
+                <>
+                  <Link to="/support">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-white bg-transparent"
+                    >
+                      <MessageCircle className="h-4 w-4 mr-1" />
+                      Support
+                    </Button>
+                  </Link>
+                  <Link to="/referral">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-white bg-transparent"
+                    >
+                      <Users className="h-4 w-4 mr-1" />
+                      Refer
+                    </Button>
+                  </Link>
+                </>
               )}
               
               <Button 
