@@ -25,6 +25,17 @@ export default function TeerResultsTable({ results, isLoading }: TeerResultsTabl
     );
   }
 
+  if (!results || results.length === 0) {
+    return (
+      <div className="flex justify-center items-center py-8">
+        <div className="text-center">
+          <p className="text-gray-500 mb-2">No data available</p>
+          <p className="text-sm text-gray-400">Please check your internet connection or try again later</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="overflow-x-auto -mx-6 px-0 sm:mx-0">
       <Table className="w-full border-collapse bg-white shadow-md rounded-lg overflow-hidden">

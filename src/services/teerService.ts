@@ -1,13 +1,19 @@
 
 import { TeerResult, PredictionResult, GutiNumber } from "@/types/teer";
 
-// Fetch Teer results from the API - Using CORS proxy for production deployment
+// Fetch Teer results from the API - Using thingproxy for CORS bypass
 export const fetchTeerResults = async (): Promise<TeerResult[]> => {
   try {
-    // Using CORS proxy to bypass restrictions - exactly like your working HTML
-    const response = await fetch('https://cors-anywhere.herokuapp.com/https://admin.shillongteerground.com/teer/api/results/');
-    const data = await response.json();
-    return data.slice(0, 20); // Get the last 20 results
+    // Using thingproxy to bypass CORS restrictions
+    const response = await fetch('https://thingproxy.freeboard.io/fetch/https://admin.shillongteerground.com/teer/api/results/');
+
+    if (response.ok) {
+      const data = await response.json();
+      return Array.isArray(data) ? data.slice(0, 20) : [];
+    } else {
+      console.error('API request failed with status:', response.status);
+      return [];
+    }
   } catch (error) {
     console.error('Error fetching results:', error);
     return [];
