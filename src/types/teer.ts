@@ -31,6 +31,14 @@ export interface PredictionResult {
   isCorrect: boolean | null;
 }
 
+export interface TodayPredictionCardData {
+  basedOnDate: string;
+  h1: number;
+  h2: number;
+  e1: number;
+  e2: number;
+}
+
 export interface GutiNumber {
   date: string;
   numbers: string[];

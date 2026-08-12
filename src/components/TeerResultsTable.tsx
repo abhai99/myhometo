@@ -53,12 +53,12 @@ export default function TeerResultsTable({ results, isLoading }: TeerResultsTabl
               </TableCell>
               <TableCell 
                 className={`border border-gray-200 text-center p-1 text-sm sm:text-base md:text-lg ${
-                  result.isCorrect === true ? "correct" : 
-                  result.isCorrect === false ? "wrong" : "pending"
+                  result.isCorrect === true ? "correct text-green-600 font-bold" : 
+                  result.isCorrect === false ? "wrong text-red-600 font-bold" : "pending text-amber-500 font-bold"
                 }`}
               >
-                {result.isCorrect === true ? "✓" : 
-                 result.isCorrect === false ? "✗" : "⏳"}
+                {result.isCorrect === true ? "✅" : 
+                 result.isCorrect === false ? "❌" : "⏳"}
               </TableCell>
             </TableRow>
           ))}
