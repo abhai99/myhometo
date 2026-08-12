@@ -5,7 +5,7 @@ import { TeerResult, PredictionResult, GutiNumber } from "@/types/teer";
 export const fetchTeerResults = async (): Promise<TeerResult[]> => {
   try {
     // Using CORS proxy to bypass restrictions
-    const response = await fetch('https://script.googleusercontent.com/macros/echo?user_content_key=AehSKLgRCC1AEEP-Jlz_tIwxD0qunNAhAhcWBi-neZ4z2xGI7eAcVno-ghOztb7YsuB38Wy8_iLuRgAB_DMeY8JwUxCTiGWu4yZG0vn_D8b_MYilf5bxwLy0D9qvEcJIOsEIcpBBPRmOfzjV8cvsFWfDVricvnqiggqe1Vw-CXhH97r-wUdDjeCIET2OuKfq_UF4UcnjuNfmKDD3zzs6cDQ83eKNa4GppMdsaSyuE6cjBxZzWy-rEGyr46-QzZoQgpQIr5-M_r-dHAfJV1luoKPjfni2oiLq5B5DRM5jWrqN&lib=M_fLkZuQPQPKvZER-3aiTiGlh2RNTi2UH');
+    const response = await fetch('https://script.google.com/macros/s/AKfycbyUaUWwIs-18s6X330mT1z4eehTqDrs_rvnkn4JTJLUcHvtd1G5yNSBERVVsDyc4sbRpg/exec');
     const data = await response.json();
     return data.slice(0, 20).map((result: any) => ({
       ...result,
